@@ -27,7 +27,7 @@ public class SmalestRangeconveringElementsFromKList {
         System.err.println(ans[0]+" "+ans[1]);
           
     }
-    class Pair{
+    static class Pair{
 
         int idx; int ele;
 
@@ -92,4 +92,63 @@ public class SmalestRangeconveringElementsFromKList {
 
         return res;
     }
+
+    public static int[] smallestRange2(List<List<Integer>> nums) {
+        
+        int n = nums.size();
+
+        int slot[] = new int[n]; // all index point to 0
+
+        int res[] = {-1000000,1000000};
+
+        while(true){
+
+            int minEle = Integer.MAX_VALUE;
+
+            int maxEle = Integer.MIN_VALUE;
+
+            int minLatestIdx = 0;
+
+            for(int i = 0 ; i < n ; i++){//traverse all list and find the smalest and largest element
+            
+                int List_idx = i;//store curr_list index
+
+                int ele_idx = slot[i];//list index's element index
+
+                int ele = nums.get(List_idx).get(ele_idx);
+
+                if(ele < minEle){// that element is smalest element
+
+                    minEle = ele;
+
+                    minLatestIdx = List_idx;
+                    
+                }
+
+                maxEle = Math.max(maxEle,ele);
+
+            }
+
+            //update res
+            if(maxEle - minEle < res[1] - res[0]){
+
+                res[0] = minEle; res[1] = maxEle;
+            }
+
+            //update nextele 
+
+            int next_idx = slot[minLatestIdx] + 1;
+
+            if(next_idx >= nums.get(minLatestIdx).size()){
+
+                break;
+
+            }
+
+            slot[minLatestIdx] = next_idx;
+        }
+
+        return res;
+    }
+
 }
