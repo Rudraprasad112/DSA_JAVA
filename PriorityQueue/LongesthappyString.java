@@ -15,7 +15,11 @@ public class LongesthappyString {
         int a = 1; int b = 1; int c = 7;
 
         //find the maximum lenght  of string tht satticefiey the condition
+        String ans1 = longestDiverseString(a, b, c);
 
+        String ans2 = longestDiverseStringSpaceOptimization(a, b, c);
+        System.out.println(ans1);
+        System.out.println(ans2);
 
     }
     static class Pair{
@@ -83,5 +87,52 @@ public class LongesthappyString {
 
         return ans;
     }
+
+    public static  String longestDiverseStringSpaceOptimization(int a, int b, int c) {
+        
+        int a_consutative = 0; int b_consutative = 0; int c_consutative = 0;
+
+        StringBuilder ans = new StringBuilder("");
+
+        int len = a + b + c;
+
+        for(int i = 0 ; i < len; i++){
+
+            if((a >= b && a >= c && a_consutative <  2) || (b_consutative == 2 && a > 0) || (c_consutative == 2 && a > 0)){
+
+                ans.append("a"); a--;
+
+                a_consutative++;
+
+                b_consutative = 0;
+
+                c_consutative = 0;
+
+            }else if((b >= a && b >= c && b_consutative < 2) || (a_consutative == 2 && b > 0) || (c_consutative == 2 && b > 0)){
+
+                ans.append("b");b--;
+
+                b_consutative++;
+
+                a_consutative = 0;
+
+                c_consutative = 0;
+
+            }else if((c >= a && c >= b && c_consutative <  2) || (a_consutative == 2 && c > 0) || (b_consutative == 2 && c > 0)){
+
+                ans.append("c"); c--;
+
+                c_consutative++;
+
+                a_consutative = 0;
+
+                b_consutative = 0;
+
+            }
+        }
+
+        return ans.toString();
+    }
+
 
 }
