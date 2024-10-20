@@ -61,7 +61,7 @@ public class findKthStringNthbit {
 
             // find the reverse and complement of string n=bit 
 
-            char ch = helper(n-1, len -(k-1));
+            char ch = helper(n-1, len -(k -1));
 
             return ch == '0'?'1':'0';
         }
